@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "116366804423",
+    "firebase_url": "https://just-listen-fd5de.firebaseio.com",
+    "project_id": "just-listen-fd5de",
+    "storage_bucket": "just-listen-fd5de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116366804423:android:453ee6957daa2a687a45e2",
+        "android_client_info": {
+          "package_name": "com.mateuszb.justlisten"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116366804423-paa1qt89tupgfofccb20b0h4pvlt3v7g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mateuszb.justlisten",
+            "certificate_hash": "6910020fb2c42d0c2ae22c6661579e3b0a04b4f8"
+          }
+        },
+        {
+          "client_id": "116366804423-ief621adqrf08dae6ra679tf7hm0plsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu1SEI8E7EM-3Hgk05AwhupXa2TJE_KBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116366804423-ief621adqrf08dae6ra679tf7hm0plsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
