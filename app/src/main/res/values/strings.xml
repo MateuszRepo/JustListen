@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Just Listen</string>
+    <string name="notification_channel_name">Music channel</string>
+    <string name="notification_channel_description">Currently playing music</string>
 </resources>
