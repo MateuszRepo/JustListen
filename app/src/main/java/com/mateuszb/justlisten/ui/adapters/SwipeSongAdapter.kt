@@ -6,11 +6,11 @@ import com.mateuszb.justlisten.R
 import com.mateuszb.justlisten.data.models.Song
 
 import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.list_item.view.tvPrimary
+import kotlinx.android.synthetic.main.swipe_item.view.*
 import javax.inject.Inject
 
-class SongsAdapter @Inject constructor(
-    private val glide: RequestManager
-) : BaseSongAdapter(R.layout.list_item) {
+class SwipeSongAdapter : BaseSongAdapter(R.layout.list_item) {
 
 
     override val differ = AsyncListDiffer(this, diffCallback)
@@ -19,9 +19,8 @@ class SongsAdapter @Inject constructor(
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            tvPrimary.text = song.title
-            tvSecondary.text = song.author
-            glide.load(song.imageURL).into(ivItemImage)
+            val songText = "${song.title} - ${song.author}"
+            tvPrimary.text = songText
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
