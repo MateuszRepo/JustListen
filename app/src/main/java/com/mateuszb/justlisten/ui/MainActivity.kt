@@ -2,11 +2,15 @@ package com.mateuszb.justlisten.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.RequestManager
+import com.google.android.material.snackbar.Snackbar
 import com.mateuszb.justlisten.R
 import com.mateuszb.justlisten.data.models.Song
+import com.mateuszb.justlisten.exoplayer.isPlaying
 import com.mateuszb.justlisten.exoplayer.toSong
 import com.mateuszb.justlisten.other.Resource
 import com.mateuszb.justlisten.ui.adapters.SwipeSongAdapter
@@ -28,12 +32,32 @@ class MainActivity : AppCompatActivity() {
 
     private var currentPlayingSong: Song? = null
 
+    private var playbakcState: PlaybackStateCompat? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         subscribeToObservers()
 
         vpSong.adapter = swipeSongAdapter
+
+        vpSong.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if(playbakcState?.isPlaying == true) {
+                    mainViewModel.playOrToggleSong(swipeSongAdapter.songs[position])
+                } else {
+                    currentPlayingSong = swipeSongAdapter.songs[position]
+                }
+            }
+        })
+
+        ivPlayPause.setOnClickListener{
+            currentPlayingSong?.let {
+                mainViewModel.playOrToggleSong(it, true)
+            }
+        }
+
     }
 
     private fun switchViewPagerToCurrentSong(song: Song) {
@@ -71,6 +95,35 @@ class MainActivity : AppCompatActivity() {
             currentPlayingSong = it.toSong()
             glide.load(currentPlayingSong?.imageURL).into(ivCurSongImage)
             switchViewPagerToCurrentSong(currentPlayingSong ?: return@observe)
+        }
+
+        mainViewModel.playbackState.observe(this) {
+            playbakcState = it
+            ivPlayPause.setImageResource(
+                if(playbakcState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
+            )
+        }
+
+        mainViewModel.isConnected.observe(this) {
+            it?.getContentIfNotHandled()?.let { result ->
+                when(result){
+                    is Resource.Error -> {
+                        Snackbar.make(rootLayout, result.errorMessage ?: "An unknown error occurred", Snackbar.LENGTH_LONG).show()
+                    }
+                    else -> {Unit}
+                }
+            }
+        }
+
+        mainViewModel.networkError.observe(this) {
+            it?.getContentIfNotHandled()?.let { result ->
+                when(result){
+                    is Resource.Error -> {
+                        Snackbar.make(rootLayout, result.errorMessage ?: "An unknown error occurred", Snackbar.LENGTH_LONG).show()
+                    }
+                    else -> {Unit}
+                }
+            }
         }
     }
 }
