@@ -7,4 +7,11 @@
         android:id="@+id/homeFragment"
         android:name="com.mateuszb.justlisten.ui.fragments.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.mateuszb.justlisten.ui.fragments.SongFragment"
+        android:label="SongFragment" />
+
+    <action android:id="@+id/actionToSongFragment"
+        app:destination="@+id/songFragment"/>
 </navigation>
