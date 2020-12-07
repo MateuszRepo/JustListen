@@ -21,7 +21,7 @@ inline val PlaybackStateCompat.isPlayEnabled
 inline val PlaybackStateCompat.currentPlaybackPosition: Long
     get() = if(state == STATE_PLAYING) {
         val timeDiff = SystemClock.elapsedRealtime() - lastPositionUpdateTime
-        (position * (timeDiff * playbackSpeed)).toLong()
+        (position + (timeDiff * playbackSpeed)).toLong()
     } else position
 
 
