@@ -67,7 +67,7 @@ class MainViewModel @ViewModelInject constructor(
             playbackState.value?.let {playbackState ->
                 when {
                     playbackState.isPlaying -> if(toggle) musicServiceConnection.transportControls.pause()
-                    playbackState.isPlayEnabled -> musicServiceConnection.transportControls.fastForward()
+                    playbackState.isPlayEnabled -> musicServiceConnection.transportControls.play()
                     else -> Unit
                 }
             }
